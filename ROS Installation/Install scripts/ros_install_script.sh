@@ -64,7 +64,7 @@ echo ""
 echo "#######################################################################################################################"
 echo ""
 echo ">>> {STEP 0: Setting locale}"
-sudo apt update && sudo apt install locales
+sudo apt update && sudo apt install locales -y
 sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
@@ -86,7 +86,7 @@ if [ "$ros_version" = "1" ]; then
   # echo "Step 9: Test ROS installation"
 elif [ "$ros_version" = "2" ]; then
 echo ">>> {STEP 1: Enable required repositories}"
-sudo apt install software-properties-common
+sudo apt install software-properties-common -y
 sudo add-apt-repository universe
 echo ""
 echo ">>> {Installing curl for adding keys}"
@@ -101,7 +101,7 @@ echo ""
 echo "#######################################################################################################################"
 echo ""
 echo ">>> {STEP 2: Installing development tools and ROS tools}"
-sudo apt update && sudo apt install ros-dev-tools
+sudo apt update && sudo apt install ros-dev-tools -y
 echo ""
 echo "#######################################################################################################################"
 echo ""
@@ -138,7 +138,7 @@ echo ">>> {STEP 4: Setting up ROS environment and installing Colcon}"
 echo ""
 read -p ">>> Do you want to automatically source the ROS environment in your shell startup file? (y/n) [N]: " source_ros_choice
 case "$source_ros_choice" in
-  "y"|"Y"|"")
+  "y"|"Y")
     echo ">>> {Configuring automatic sourcing of ROS environment}"
     echo ""
     default_shell=$(basename "$SHELL")
@@ -152,7 +152,7 @@ case "$source_ros_choice" in
         echo ">>> {Unknown shell: $default_shell. Please manually source the appropriate ROS setup file.}"
       fi
     ;;
-  "n"|"N")
+  "n"|"N"|"")
     echo ">>> {Skipping automatic sourcing of ROS environment. You will need to source it manually.}"
     ;;
   *)
@@ -161,7 +161,7 @@ case "$source_ros_choice" in
 esac
 echo ""
 echo ">>> {Installing Colcon}"
-sudo apt update && sudo apt install python3-colcon-common-extensions
+sudo apt update && sudo apt install python3-colcon-common-extensions -y
 echo ""
 echo "#######################################################################################################################"
 echo ""
