@@ -9,7 +9,7 @@ This guide provides installation instructions for various ROS and ROS2 distribut
 I have Created an All-in-one Script which installs based on ubuntu version and best suited ROS Distro.
 
 ```bash
-wget -c https://raw.githubusercontent.com/pratham280/Ros2_resources/refs/heads/master/ROS%Installation/Install%script/ros_install_script.sh && sudo ./ros_install_script.sh
+wget -c https://raw.githubusercontent.com/pratham280/Ros2_resources/refs/heads/master/ROS%20Installation/Install%20scripts/ros_install_script.sh && sudo ./ros_install_script.sh
 ```
 
 
