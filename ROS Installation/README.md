@@ -101,8 +101,8 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    echo "source /opt/ros/kilted/setup.bash" >> ~/.bashrc
    source ~/.bashrc
    ```
-   > [!NOTE]
-   > Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+> [!NOTE]
+> Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
 
 4. Install Colcon[^2]
    ``` bash
@@ -145,8 +145,9 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
    source ~/.bashrc
    ```
-   > [!NOTE]
-   > Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+> [!NOTE]
+> Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+
 4. Install Colcon[^2]
    ``` bash
    sudo apt install python3-colcon-common-extensions
@@ -187,8 +188,9 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    echo "source /opt/ros/kilted/setup.bash" >> ~/.bashrc
    source ~/.bashrc
    ```
-   > [!NOTE]
-   > Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+> [!NOTE]
+> Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+   
 4. Install Colcon[^2]
    ``` bash
    sudo apt install python3-colcon-common-extensions
@@ -204,7 +206,7 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 > **Documentation:** https://docs.ros.org/en/rolling/Releases/Release-Foxy-Fitzroy.html
 
 > [!WARNING]
-> THIS VERSION OF ROS IS NO LONGER IN SUPPORT 
+> THIS VERSION OF ROS IS __NO LONGER IN SUPPORT__ 
 
 1. Setup sources:
 
@@ -232,8 +234,9 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    echo "source /opt/ros/kilted/setup.bash" >> ~/.bashrc
    source ~/.bashrc
    ```
-   > [!NOTE]
-   > Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+> [!NOTE]
+> Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+   
 4. Install Colcon[^2]
    ``` bash
    sudo apt install python3-colcon-common-extensions
@@ -251,7 +254,7 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 > **Documentation:** https://wiki.ros.org/noetic 
 
 > [!CAUTION]
-> THIS VERSION OF ROS IS NO LONGER IN SUPPORT 
+> THIS VERSION OF ROS IS __NO LONGER IN SUPPORT__ 
 
 1. One Line Installation:
    ```bash
@@ -275,7 +278,7 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 > **Documentation:** https://wiki.ros.org/kinetic 
 
 > [!CAUTION]
-> THIS VERSION OF ROS IS NO LONGER IN SUPPORT 
+> THIS VERSION OF ROS IS __NO LONGER IN SUPPORT__ 
 
 1. Setup sources:
 
