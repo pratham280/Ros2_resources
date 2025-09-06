@@ -6,7 +6,7 @@ This guide provides installation instructions for various ROS and ROS2 distribut
 
 > Covering only **Tier-1 Platform**[^1]. as Mentioned in [REP 2000](https://www.ros.org/reps/rep-2000.html).
 
-I have Created an All-in-one Script which installs based on ubuntu version and best suited ROS Distro.
+I have Created an All-in-one Script which install based on ubuntu version and best suited ROS Distro.
 
 ```bash
 wget -c https://raw.githubusercontent.com/pratham280/Ros2_resources/refs/heads/master/ROS%20Installation/Install%20scripts/ros_install_script.sh && chmod +x ./ros_install_script.sh && sudo ./ros_install_script.sh

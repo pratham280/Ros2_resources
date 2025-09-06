@@ -71,19 +71,97 @@ export LANG=en_US.UTF-8
 echo ""
 echo "#######################################################################################################################"
 echo ""
+# ----------------------------------------------------------------------------------------------
 # Installation procedure structure based on ROS version
 if [ "$ros_version" = "1" ]; then
-  exit 1
-  # echo ">>> {ROS1 Installation Procedure}"
-  # echo "Step 1: Configure Ubuntu repositories"
-  # echo "Step 2: Setup sources.list for ROS"
-  # echo "Step 3: Set up keys for ROS repository"
-  # echo "Step 4: Update package index"
-  # echo "Step 5: Install ROS (choose Desktop-Full, Desktop, or Base)"
-  # echo "Step 6: Set up ROS environment"
-  # echo "Step 7: Install additional ROS tools"
-  # echo "Step 8: Initialize rosdep"
-  # echo "Step 9: Test ROS installation"
+echo ">>> {STEP 1: Enable required repositories}"
+sudo add-apt-repository universe
+sudo add-apt-repository restricted
+sudo add-apt-repository multiverse
+sudo apt update
+echo ""
+echo ">>> {Installing curl for adding keys}"
+echo ""
+sudo apt update && sudo apt install curl -y
+sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu ${version} main\" > /etc/apt/sources.list.d/ros-latest.list"
+if [ ! -e /etc/apt/sources.list.d/ros-latest.list ]; then
+  echo ">>> {Error: Unable to add sources.list, exiting}"
+  exit 0
+fi
+ret=$(curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -)
+case $ret in
+  "OK" )
+  ;;
+  *)
+    echo ">>> {ERROR: Unable to add ROS keys}"
+    exit 0
+esac
+echo ""
+echo ">>> {Repositories enabled successfully!}"
+echo ""
+echo "#######################################################################################################################"
+echo ""
+echo ">>> {STEP 2: Installing ROS2}"
+sudo apt update && sudo apt upgrade -y
+echo ">>> {Install ROS, you pick how much of ROS you would like to install.}"
+echo "     [1. Desktop-Full Install: (Recommended) : Everything in Desktop plus 2D/3D simulators and 2D/3D perception packages ]"
+echo ""
+echo "     [2. Desktop Install: Everything in ROS-Base plus tools like rqt and rviz]"
+echo ""
+echo "     [3. ROS-Base: (Bare Bones) ROS packaging, build, and communication libraries. No GUI tools.]"
+echo ""
+read -p "Enter your install (Default is 1): " answer 
+
+case "$answer" in
+  1)
+    package_type="desktop-full"
+    ;;
+  2)
+    package_type="desktop"
+    ;;
+  3)
+    package_type="ros-base"
+    ;;
+  * )
+    package_type="desktop-full"
+    ;;
+esac
+echo ""
+echo ">>> {Starting ROS installation, this will take about 10 min. It will depends on your internet connection}"
+echo ""
+sudo apt install -y ros-${name_ros_distro}-${package_type} 
+echo ""
+echo ">>> {ROS installation completed!}"
+echo ""
+echo "#######################################################################################################################"
+echo ""
+echo ">>> {STEP 3: Setting up ROS environment and installing Colcon}"
+echo ""
+read -p ">>> Do you want to automatically source the ROS environment in your shell startup file? (y/n) [N]: " source_ros_choice
+case "$source_ros_choice" in
+  "y"|"Y")
+    echo "source /opt/ros/noetic/setup.bash" >> /home/$SUDO_USER/.bashrc
+    source /home/$SUDO_USER/.bashrc
+    ;;
+  "n"|"N"|"")
+    echo ">>> {Skipping automatic sourcing of ROS environment. You will need to source it manually.}"
+    ;;
+  *)
+    echo ">>> {Skipping automatic sourcing of ROS environment. You will need to source it manually.}"
+    ;;
+esac
+echo ""
+echo ">>> {Installing Rosdep and other ROS tools}"
+sudo apt install -y python3-rosdep python3-rosinstall python3-rosinstall-generator python3-wstool build-essential
+sudo rosdep init
+rosdep update
+echo ""
+echo "#######################################################################################################################"
+echo ""
+echo ">>> {STEP 4: Testing ROS installation, checking ROS version.}"
+echo ""
+echo ">>> {Type [ rosversion -d ] to get the current ROS installed version}"
+# --------------------------------------------------------------------------------------------
 elif [ "$ros_version" = "2" ]; then
 echo ">>> {STEP 1: Enable required repositories}"
 sudo apt install software-properties-common -y
@@ -92,9 +170,14 @@ echo ""
 echo ">>> {Installing curl for adding keys}"
 echo ""
 sudo apt update && sudo apt install curl -y
-export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}')
-curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo $VERSION_CODENAME)_all.deb" # If using Ubuntu derivates use $UBUNTU_CODENAME
-sudo dpkg -i /tmp/ros2-apt-source.deb
+# Check if ROS2 keyring already exists
+if [ -f /usr/share/keyrings/ros-archive-keyring.gpg ]; then
+  echo ">>> {ROS2 keyring already exists, skipping key installation.}"
+else
+  export ROS_APT_SOURCE_VERSION=$(curl -s https://api.github.com/repos/ros-infrastructure/ros-apt-source/releases/latest | grep -F "tag_name" | awk -F\" '{print $4}')
+  curl -L -o /tmp/ros2-apt-source.deb "https://github.com/ros-infrastructure/ros-apt-source/releases/download/${ROS_APT_SOURCE_VERSION}/ros2-apt-source_${ROS_APT_SOURCE_VERSION}.$(. /etc/os-release && echo $VERSION_CODENAME)_all.deb"
+  sudo dpkg -i /tmp/ros2-apt-source.deb
+fi
 echo ""
 echo ">>> {Repositories enabled successfully!}"
 echo ""
@@ -113,7 +196,6 @@ echo ""
 echo "     [2. ROS-Base: Communication libraries, message packages, command line tools. No GUI tools.]"
 echo ""
 read -p "Enter your install (Default is 1):" answer 
-
 case "$answer" in
   1)
     package_type="desktop"
