@@ -54,14 +54,31 @@ case $version in
     ;;
 esac
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
+echo ""
+# Check if ROS is already installed
+if dpkg -l | grep -q "ros-${name_ros_distro}-"; then
+  echo ">>> {A ROS package for ${name_ros_distro} already exists on your system.}"
+  echo ">>> {Do you want to continue with the installation or quit?}"
+  read -p ">>> Enter 'c' to continue or 'q' to quit [q]: " ros_continue_choice
+  case "$ros_continue_choice" in
+    "c"|"C")
+      echo ">>> {Continuing with installation...}"
+      ;;
+    *)
+      echo ">>> {Exiting installation as requested.}"
+      # echo "#########################"
+      exit 0
+      ;;
+  esac
+fi
 echo ""
 # Print the selected ROS distro with first letter uppercase
 ros_distro_capitalized="$(echo ${name_ros_distro:0:1} | tr '[:lower:]' '[:upper:]')${name_ros_distro:1}"
 echo ">>> {Starting ROS$ros_version $ros_distro_capitalized Installation}"
 user_name=$(whoami)
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
 echo ""
 echo ">>> {STEP 0: Setting locale}"
 sudo apt update && sudo apt install locales -y
@@ -69,7 +86,7 @@ sudo locale-gen en_US en_US.UTF-8
 sudo update-locale LC_ALL=en_US.UTF-8 LANG=en_US.UTF-8
 export LANG=en_US.UTF-8
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
 echo ""
 # ----------------------------------------------------------------------------------------------
 # Installation procedure structure based on ROS version
@@ -83,27 +100,35 @@ echo ""
 echo ">>> {Installing curl for adding keys}"
 echo ""
 sudo apt update && sudo apt install curl -y
-sudo sh -c "echo \"deb http://packages.ros.org/ros/ubuntu ${version} main\" > /etc/apt/sources.list.d/ros-latest.list"
-if [ ! -e /etc/apt/sources.list.d/ros-latest.list ]; then
-  echo ">>> {Error: Unable to add sources.list, exiting}"
-  exit 0
+# Add ROS repository if not already present
+if ! grep -q "^deb .*.ros/ubuntu" /etc/apt/sources.list /etc/apt/sources.list.d/* 2>/dev/null; then
+  echo ">>> {Adding ROS repository to sources.list.d}"
+  echo "deb http://packages.ros.org/ros/ubuntu ${version} main" | sudo tee /etc/apt/sources.list.d/ros-latest.list
+else
+  echo ">>> {ROS repository already present, skipping.}"
 fi
-ret=$(curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -)
-case $ret in
-  "OK" )
-  ;;
-  *)
-    echo ">>> {ERROR: Unable to add ROS keys}"
-    exit 0
-esac
+# Check if ROS key is already added
+if apt-key list 2>/dev/null | grep -q "F42ED6FBAB17C654"; then
+  echo ">>> {ROS key already present, skipping key addition.}"
+else
+  echo ">>> {Adding ROS key...}"
+  curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -
+  if apt-key list 2>/dev/null | grep -q "F42ED6FBAB17C654"; then
+    echo ">>> {ROS key added successfully!}"
+  else
+    echo ">>> {ERROR: Unable to add ROS key. Exiting.}"
+    exit 1
+  fi
+fi
 echo ""
 echo ">>> {Repositories enabled successfully!}"
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
 echo ""
 echo ">>> {STEP 2: Installing ROS2}"
 sudo apt update && sudo apt upgrade -y
 echo ">>> {Install ROS, you pick how much of ROS you would like to install.}"
+echo ""
 echo "     [1. Desktop-Full Install: (Recommended) : Everything in Desktop plus 2D/3D simulators and 2D/3D perception packages ]"
 echo ""
 echo "     [2. Desktop Install: Everything in ROS-Base plus tools like rqt and rviz]"
@@ -133,7 +158,7 @@ sudo apt install -y ros-${name_ros_distro}-${package_type}
 echo ""
 echo ">>> {ROS installation completed!}"
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
 echo ""
 echo ">>> {STEP 3: Setting up ROS environment and installing Colcon}"
 echo ""
@@ -156,7 +181,7 @@ sudo apt install -y python3-rosdep python3-rosinstall python3-rosinstall-generat
 sudo rosdep init
 rosdep update
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
 echo ""
 echo ">>> {STEP 4: Testing ROS installation, checking ROS version.}"
 echo ""
@@ -181,12 +206,12 @@ fi
 echo ""
 echo ">>> {Repositories enabled successfully!}"
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
 echo ""
 echo ">>> {STEP 2: Installing development tools and ROS tools}"
 sudo apt update && sudo apt install ros-dev-tools -y
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
 echo ""
 echo ">>> {STEP 3: Installing ROS2}"
 sudo apt update && sudo apt upgrade -y
@@ -214,7 +239,7 @@ sudo apt install -y ros-${name_ros_distro}-${package_type}
 echo ""
 echo ">>> {ROS installation completed!}"
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
 echo ""
 echo ">>> {STEP 4: Setting up ROS environment and installing Colcon}"
 echo ""
@@ -245,7 +270,7 @@ echo ""
 echo ">>> {Installing Colcon}"
 sudo apt update && sudo apt install python3-colcon-common-extensions -y
 echo ""
-echo "#######################################################################################################################"
+echo "#########################"
 echo ""
 echo ">>> {STEP 6: Testing ROS installation, checking ROS version.}"
 echo ""

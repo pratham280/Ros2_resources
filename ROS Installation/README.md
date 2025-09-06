@@ -1,9 +1,11 @@
-![ros mascot](https://live.staticflickr.com/4097/4787692791_03b2c7ee06.jpg)
 
 # Robot Operating System (ROS/ROS2) Installation Guide
 
+![ROS ART](https://live.staticflickr.com/4097/4787692791_03b2c7ee06.jpg)
+
 This guide provides installation instructions for various ROS and ROS2 distributions. Each section is dedicated to a specific version for clarity.
 
+> [!TIP]
 > Covering only **Tier-1 Platform**[^1]. as Mentioned in [REP 2000](https://www.ros.org/reps/rep-2000.html).
 
 I have Created an All-in-one Script which install based on ubuntu version and best suited ROS Distro.
@@ -69,6 +71,10 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 
 ### ROS2 Kilted Kaiju (Ubuntu 24.04)
 
+> **Supported Platform:** Noble <br/>
+> **EOL Date:** May, 2026 <br/>
+> **Documentation:** https://docs.ros.org/en/rolling/Releases/Release-Kilted-Kaiju.html
+
 1. Setup sources:
 
    ```bash
@@ -95,8 +101,8 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    echo "source /opt/ros/kilted/setup.bash" >> ~/.bashrc
    source ~/.bashrc
    ```
-   > :information_source: Note\
-   Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+   > [!NOTE]
+   > Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
 
 4. Install Colcon[^2]
    ``` bash
@@ -108,6 +114,10 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 <img src="https://docs.ros.org/en/humble/_images/jazzy-small.png" alt="Humble" width="60" />
 
 ### ROS2 Jazzy Jalisco (Ubuntu 24.04)
+
+> **Supported Platform:** Noble <br/>
+> **EOL Date:** May, 2029 <br/>
+> **Documentation:** https://docs.ros.org/en/rolling/Releases/Release-Jazzy-Jalisco.html
 
 1. Setup sources:
 
@@ -135,8 +145,8 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    echo "source /opt/ros/jazzy/setup.bash" >> ~/.bashrc
    source ~/.bashrc
    ```
-   > :information_source: Note\
-   Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+   > [!NOTE]
+   > Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
 4. Install Colcon[^2]
    ``` bash
    sudo apt install python3-colcon-common-extensions
@@ -146,6 +156,10 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 <img src="https://docs.ros.org/en/humble/_images/humble-small.png" alt="Humble" width="60" /> 
 
 ### ROS2 Humble Hawksbill (Ubuntu 22.04)
+
+> **Supported Platform:** Jammy <br/>
+> **EOL Date:** May, 2027 <br/>
+> **Documentation:** https://docs.ros.org/en/rolling/Releases/Release-Humble-Hawksbill.html
 
 1. Setup sources:
 
@@ -173,8 +187,8 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    echo "source /opt/ros/kilted/setup.bash" >> ~/.bashrc
    source ~/.bashrc
    ```
-   > :information_source: Note\
-   Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+   > [!NOTE]
+   > Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
 4. Install Colcon[^2]
    ``` bash
    sudo apt install python3-colcon-common-extensions
@@ -184,6 +198,13 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 <img src="https://docs.ros.org/en/humble/_images/foxy-small.png" alt="Humble" width="60" />   
 
 ### ROS2 Foxy Fitzroy (Ubuntu 20.04)
+
+> **Supported Platform:** Focal <br/>
+> **EOL Date:** June, 2023 <br/>
+> **Documentation:** https://docs.ros.org/en/rolling/Releases/Release-Foxy-Fitzroy.html
+
+> [!WARNING]
+> THIS VERSION OF ROS IS NO LONGER IN SUPPORT 
 
 1. Setup sources:
 
@@ -211,8 +232,8 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    echo "source /opt/ros/kilted/setup.bash" >> ~/.bashrc
    source ~/.bashrc
    ```
-   > :information_source: Note\
-   Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
+   > [!NOTE]
+   > Replace `.bash` with your shell if you’re not using bash. Possible values are: `setup.bash`,` setup.sh`, `setup.zsh`.
 4. Install Colcon[^2]
    ``` bash
    sudo apt install python3-colcon-common-extensions
@@ -224,6 +245,13 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 <img src="https://raw.githubusercontent.com/ros-infrastructure/artwork/master/distributions/noetic.png" alt="Noetic" width="60" /> 
 
 ### ROS Noetic Ninjemys (Ubuntu 20.04)
+
+> **Supported Platform:** Focal <br/>
+> **EOL Date:** May, 2025 <br/>
+> **Documentation:** https://wiki.ros.org/noetic 
+
+> [!CAUTION]
+> THIS VERSION OF ROS IS NO LONGER IN SUPPORT 
 
 1. One Line Installation:
    ```bash
@@ -242,6 +270,13 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 
 ### ROS Kinetic Kame (Ubuntu 16.04)
 
+> **Supported Platform:** Xenial <br/>
+> **EOL Date:** April, 2021 <br/>
+> **Documentation:** https://wiki.ros.org/kinetic 
+
+> [!CAUTION]
+> THIS VERSION OF ROS IS NO LONGER IN SUPPORT 
+
 1. Setup sources:
 
    ```bash
@@ -258,7 +293,6 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    sudo apt-get update && sudo apt-get install ros-kinetic-desktop-full
    ```
 
-
 3. Environment setup:
 
    ```bash
@@ -268,7 +302,7 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
 
 4. Dependencies for building packages
    ```bash
-      sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
+   sudo apt install python-rosdep python-rosinstall python-rosinstall-generator python-wstool build-essential
    ```
 5. Initialize rosdep:
 
@@ -285,7 +319,39 @@ Make sure you have a locale which supports `UTF-8`. If you are in a minimal envi
    sudo apt install python-catkin-tools
    ```
 ---
+## Uninstall ROS
 
+### Kited Kaiju
+Complete Uninstall of Kilted
+``` bash
+sudo apt remove ~nros-kilted-* && sudo apt autoremove
+```
+### Jazzy Jalisco
+Complete Uninstall of Jazzy
+```bash
+sudo apt remove ~nros-jazzy-* && sudo apt autoremove
+```
+### Humble Hawksbill
+Complete Uninstall of Humble
+```bash
+sudo apt remove ~nros-humble-* && sudo apt autoremove
+```
+### Foxy Fitzory
+Complete Uninstall of Foxy
+```bash
+sudo apt remove ~nros-foxy-* && sudo apt autoremove
+```
+### Noetic Ninjemys
+Complete Uninstall of Noetic
+```bash
+sudo apt remove ~nros-noetic-* && sudo apt autoremove
+```
+### Kinetic Kame
+Complete Uninstall of Kinetic
+```bash
+sudo apt remove ~nros-kinetic-* && sudo apt autoremove
+```
+---
 For more details, refer to the [official ROS/ROS2 installation guide](https://docs.ros.org/).
 
 [^1]: Tier 1 - Errors or bugs discovered in these platforms are   prioritized for correction by the development team, ROS running on these platforms perform stably
