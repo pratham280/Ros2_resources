@@ -80,3 +80,29 @@ A curated list of references, tutorials, and tools for working with ROS (Robot O
 - **ROS2 CLI Reference:** [https://www.theconstruct.ai/wp-content/uploads/2021/10/ROS2-Command-Cheat-Sheets-updated.pdf](https://www.theconstruct.ai/wp-content/uploads/2021/10/ROS2-Command-Cheat-Sheets-updated.pdf)
 
 ---
+
+## Utility List 
+
+[Create Packages](https://www.reddit.com/r/ROS/comments/1nbg54g/turtle_nest_an_easy_way_to_create_ros_2_packages/)
+
+[Create Package alternative](https://github.com/ika-rwth-aachen/ros2-pkg-create)
+
+[AstroViz](https://github.com/CDonosoK/astroviz)
+
+[FoxGlove alternative for RViz/RViz2](https://foxglove.dev/download)
+
+[ROS2 Unbag](https://github.com/ika-rwth-aachen/ros2_unbag)
+
+[Docker Ros2 containerization](https://github.com/ika-rwth-aachen/docker-ros)
+
+[Bridge ROS2 To MQTT](https://github.com/ika-rwth-aachen/mqtt_client)
+
+[FoxGlove param editor](https://github.com/RobotX-Workshops/foxglove-params)
+
+[Fusion to URDF](https://github.com/dheena2k2/fusion2urdf-ros2)
+
+[SolidWorks to URDF](https://wiki.ros.org/sw_urdf_exporter)
+
+## Videos 
+
+[PID contro for BLDC](https://www.reddit.com/r/robotics/comments/1n8pwya/pid_controller_explained_how_to_tune_pid_for_bldc/)
