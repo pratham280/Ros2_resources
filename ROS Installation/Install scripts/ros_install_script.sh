@@ -12,9 +12,33 @@ echo ""
 #Getting version and release number of Ubuntu
 case $version in
   "focal")
-    echo ">>> {Detected ROS Distro: ROS Noetic Ninjemys}"
-    name_ros_distro="noetic"
-    ros_version="1"
+    # Prompt user to choose ROS1 Noetic (default) or ROS2 Foxy with a countdown to default
+    echo ">>> {Detected Ubuntu focal (20.04). You can install ROS1 Noetic or ROS2 Foxy.}"
+    default_choice=1
+    timeout=10
+    echo ""  
+    read -t $timeout -p ">>> Enter ROS distro to install (Foxy : 1 / Noetic : 0) [Noetic : 0]: " focal_choice || true 
+    if [ -z "$focal_choice" ]; then
+      echo ">>> No input detected. Defaulting to ROS1 Noetic."
+      focal_choice=$default_choice
+    fi
+    case "$focal_choice" in
+      0)
+        echo ">>> {Detected ROS Distro: ROS Noetic Ninjemys}"
+        name_ros_distro="noetic"
+        ros_version="1"
+        ;;
+      1)
+        echo ">>> {Detected ROS2 Distro: ROS Foxy Fitzroy}"
+        name_ros_distro="foxy"
+        ros_version="2"
+        ;;
+      *)
+        echo ">>> {Invalid choice, defaulting to ROS1 Noetic.}"
+        name_ros_distro="noetic"
+        ros_version="1"
+        ;;
+    esac
     ;;
   "noble")
     echo ">>> {You can install ROS 'kilted' or 'jazzy'.}"
@@ -43,16 +67,17 @@ case $version in
     name_ros_distro="humble"
     ros_version="2"
     ;;
-    "xenial")
-      echo ">>> {Detected ROS Distro: ROS Kinetic Kame}"
-      name_ros_distro="kinetic"
-      ros_version="1"
-      ;;
+  "xenial")
+    echo ">>> {Detected ROS Distro: ROS Kinetic Kame}"
+    name_ros_distro="kinetic"
+    ros_version="1"
+    ;;
   *)
     echo ">>> {ERROR: Unsupported Ubuntu version for automatic ROS distro selection. Exiting.....}"
     exit 1
     ;;
 esac
+
 echo ""
 echo "#########################"
 echo ""
@@ -88,8 +113,10 @@ export LANG=en_US.UTF-8
 echo ""
 echo "#########################"
 echo ""
+
+
 # ----------------------------------------------------------------------------------------------
-# Installation procedure structure based on ROS version
+# Installation procedure structure based on ROS 1 version
 if [ "$ros_version" = "1" ]; then
 echo ">>> {STEP 1: Enable required repositories}"
 sudo add-apt-repository universe
@@ -108,12 +135,12 @@ else
   echo ">>> {ROS repository already present, skipping.}"
 fi
 # Check if ROS key is already added
-if apt-key list 2>/dev/null | grep -q "F42ED6FBAB17C654"; then
+if ! apt-key list 2>/dev/null | grep -c "F42E D6FB AB17 C654"; then
   echo ">>> {ROS key already present, skipping key addition.}"
 else
   echo ">>> {Adding ROS key...}"
   curl -sSL 'http://keyserver.ubuntu.com/pks/lookup?op=get&search=0xC1CF6E31E6BADE8868B172B4F42ED6FBAB17C654' | sudo apt-key add -
-  if apt-key list 2>/dev/null | grep -q "F42ED6FBAB17C654"; then
+  if ! apt-key list 2>/dev/null | grep -c "F42E D6FB AB17 C654"; then
     echo ">>> {ROS key added successfully!}"
   else
     echo ">>> {ERROR: Unable to add ROS key. Exiting.}"
@@ -186,7 +213,10 @@ echo ""
 echo ">>> {STEP 4: Testing ROS installation, checking ROS version.}"
 echo ""
 echo ">>> {Type [ rosversion -d ] to get the current ROS installed version}"
+
+
 # --------------------------------------------------------------------------------------------
+#  ROS2 
 elif [ "$ros_version" = "2" ]; then
 echo ">>> {STEP 1: Enable required repositories}"
 sudo apt install software-properties-common -y
